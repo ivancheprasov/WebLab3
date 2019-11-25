@@ -4,7 +4,7 @@ import javax.persistence.*;
 @Table(schema = "lab", name = "dots")
 public class Dot {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(table = "dots", name = "x")
@@ -15,10 +15,6 @@ public class Dot {
 
     @Column(table = "dots", name = "r")
     private double r;
-
-    public Dot(int id) {
-        this(id, 0, 0, 0);
-    }
 
     public double getX() {
         return x;

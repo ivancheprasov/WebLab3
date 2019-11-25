@@ -62,7 +62,7 @@ public class DotDAOImpl implements DotDAO {
 
     public void addDot(Dot newDot) {
         Optional<Dot> dotOptional = getOptionalDotById(newDot.getId());
-        Dot dot = dotOptional.orElse(new Dot(current.getAndIncrement()));
+        Dot dot = dotOptional.orElse(new Dot());
         dot.setX(newDot.getX());
         dot.setY(newDot.getY());
         dot.setR(newDot.getR());
