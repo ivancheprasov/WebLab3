@@ -326,6 +326,7 @@ function setMainLink() {
 }
 
 function setDefaultCanvas() {
+    $('#canvas-container').append('<canvas id="canvas">Здесь должен был быть Canvas, но ваш браузер его не поддерживает.</canvas>');
     drawCanvas("R");
     $('#canvas').click(function (event) {
         let canvas = $('#canvas').get(0);
