@@ -1,12 +1,15 @@
+html{
+	height: 95%;
+}
 body{
 	color: white;
 	background-color:#E0E0CB;
 	font-family: "Times New Roman",serif;
-	margin-top:2%;
-	margin-bottom:2%;
+	margin: 2%;
 	margin-left:5%;
 	margin-right: 5%;
-
+    height: 96%;
+	position: relative;
 }
 header,.header{
 	font-family: "Times",serif;
@@ -20,6 +23,18 @@ header,.header{
 }
 h1::first-line{
 	font-size:35px;
+}
+.footer{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+    font-family: "Times",serif;
+    border:5px solid #30125A;
+    text-align:center;
+    background:linear-gradient(45deg,#144B92,#26ADBD);
+    align-content:center;
+    font-size:25px;
 }
 #result-body{
 	background:linear-gradient(45deg,#144B92,#26ADBD);
@@ -130,11 +145,19 @@ a:visited{
 a:hover{
     color:white;
 }
+#gitLink{
+    text-decoration: underline;
+    font-style: italic;
+    cursor: pointer;
+}
+#gitLink:hover{
+    font-weight: bold;
+}
 #clockDiv{
 	text-align: center;
+    margin-top: 5%;
 }
 #clock{
-	padding-top: 2.5%;
 	color: black;
 	font-size: 40px;
 	text-align: center;
