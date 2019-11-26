@@ -156,6 +156,7 @@ function drawCanvas(R) {
     let context = canvas.getContext("2d");
     let size = canvas.width;
     canvas.height = size;
+    alert(size);
     context.clearRect(0, 0, size, size);
     context.strokeStyle = 'rgb(0,0,0)';
     context.lineWidth = 3;
@@ -326,7 +327,6 @@ function setMainLink() {
 }
 
 function setDefaultCanvas() {
-    $('#canvas-container').append('<canvas id="canvas">Здесь должен был быть Canvas, но ваш браузер его не поддерживает.</canvas>');
     drawCanvas("R");
     $('#canvas').click(function (event) {
         let canvas = $('#canvas').get(0);

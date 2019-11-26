@@ -11,55 +11,58 @@
     <h:outputScript name="js/code.js"/>
 </h:head>
 <h:body>
-    <div class="left-table">
-        <h:form id="form" method="post" target="answer">
+    <script type="javascript">
+        console.log(5);
+        // setDefaultCanvas();
+    </script>
+    <h:form id="form" method="post" target="answer">
+        <div class="left-table">
             <table class="point-table">
                 <thead>
                 <tr>
-                    <td class="table-heading" colspan="4">Выберите координаты точки и радиус</td>
+                    <td class="table-heading" colspan="2">Выберите координаты точки и радиус</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>Область</td>
-                    <td colspan="3">Значения</td>
+                    <td>Значения</td>
                 </tr>
                 <tr>
-                    <td rowspan="10" id="canvas-cell">
-                        <div id="canvas-container"></div>
-                        <script type="javascript">
-                            setDefaultCanvas();
-                        </script>
+                    <td rowspan="6" id="canvas-cell">
+                        <div id="canvas-container">
+                            <!--<canvas id="canvas">Здесь должен был быть Canvas, но ваш браузер его не поддерживает.</canvas>-->
+                        </div>
                     </td>
-                    <td colspan="3">
+                    <td>
                         Координата Х:
                     </td>
                 </tr>
 
                 <tr>
-                    <td colspan="3">
+                    <td>
                         <!--<input type="text" class="text-input" id="x-input" placeholder="Графический ввод" maxlength="10"-->
                         <!--name="x-input[]" form="form" readonly>-->
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3">
+                    <td>
                         Координата Y:
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3">
+                    <td>
                         <!--<input type="text" class="text-input" id="y-input" placeholder="от -5 до 3" maxlength="10"-->
                         <!--name="y-input" form="form">-->
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3">
+                    <td>
                         Радиус:
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">
+                    <td colspan="2">
                         <!--<button type="button" class="button" id="submitButton" form="form"-->
                         <!--onclick="return formSubmit(event);">-->
                         <!--Отправить-->
@@ -68,102 +71,102 @@
                 </tr>
                 </tbody>
             </table>
-        </h:form>
-    </div>
-    <div class="right-table">
-        <table class="point-table">
-            <thead>
-            <tr>
-                <td class="table-heading">
-                    Результат обработки данных
-                </td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <table class="result-table">
-                        <tr id="first-line">
-                            <td>
-                                Координата Х
-                            </td>
-                            <td>
-                                Координата Y
-                            </td>
-                            <td>
-                                Координата R
-                            </td>
-                            <td>
-                                Попадание
-                            </td>
-                        </tr>
-                        <tr id="second-line">
-                            <td>
-                                <br/>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr id="third-line">
-                            <td>
-                                <br/>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr id="fourth-line">
-                            <td>
-                                <br/>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr id="fifth-line">
-                            <td>
-                                <br/>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr id="sixth-line">
-                            <td>
-                                <br/>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a id="indexLink" href="index.xhtml">Вернуться на титульную страницу</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="bottom-table">
-        <table class="error-table">
-            <thead>
-            <tr>
-                <td>Полезные советы</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <ul id="error-log">
-                    </ul>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        </div>
+        <div class="right-table">
+            <table class="point-table">
+                <thead>
+                <tr>
+                    <td class="table-heading">
+                        Результат обработки данных
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <table class="result-table">
+                            <tr id="first-line">
+                                <td>
+                                    Координата Х
+                                </td>
+                                <td>
+                                    Координата Y
+                                </td>
+                                <td>
+                                    Координата R
+                                </td>
+                                <td>
+                                    Попадание
+                                </td>
+                            </tr>
+                            <tr id="second-line">
+                                <td>
+                                    <br/>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr id="third-line">
+                                <td>
+                                    <br/>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr id="fourth-line">
+                                <td>
+                                    <br/>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr id="fifth-line">
+                                <td>
+                                    <br/>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr id="sixth-line">
+                                <td>
+                                    <br/>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a id="indexLink" href="index.xhtml">Вернуться на титульную страницу</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="bottom-table">
+            <table class="error-table">
+                <thead>
+                <tr>
+                    <td>Полезные советы</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <ul id="error-log">
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </h:form>
 </h:body>
 </html>
