@@ -8,7 +8,6 @@ body{
 	margin: 2%;
 	margin-left:5%;
 	margin-right: 5%;
-    height: 96%;
 	position: relative;
 }
 header,.header{
@@ -145,12 +144,12 @@ a:visited{
 a:hover{
     color:white;
 }
-#gitLink{
+#gitLink,#indexLink{
     text-decoration: underline;
     font-style: italic;
     cursor: pointer;
 }
-#gitLink:hover{
+#gitLink:hover,#indexLink:hover{
     font-weight: bold;
 }
 #clockDiv{
