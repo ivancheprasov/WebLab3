@@ -156,7 +156,6 @@ function drawCanvas(R) {
     let context = canvas.getContext("2d");
     let size = canvas.width;
     canvas.height = size;
-    alert(size);
     context.clearRect(0, 0, size, size);
     context.strokeStyle = 'rgb(0,0,0)';
     context.lineWidth = 3;

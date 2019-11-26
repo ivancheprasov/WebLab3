@@ -11,10 +11,6 @@
     <h:outputScript name="js/code.js"/>
 </h:head>
 <h:body>
-    <script type="javascript">
-        console.log(5);
-        // setDefaultCanvas();
-    </script>
     <h:form id="form" method="post" target="answer">
         <div class="left-table">
             <table class="point-table">
@@ -31,7 +27,8 @@
                 <tr>
                     <td rowspan="6" id="canvas-cell">
                         <div id="canvas-container">
-                            <!--<canvas id="canvas">Здесь должен был быть Canvas, но ваш браузер его не поддерживает.</canvas>-->
+                            <canvas id="canvas">Здесь должен был быть Canvas, но ваш браузер его не поддерживает.</canvas>
+                            <h:outputScript name="js/canvas.js"/>
                         </div>
                     </td>
                     <td>
