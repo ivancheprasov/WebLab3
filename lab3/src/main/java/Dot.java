@@ -1,7 +1,7 @@
 import javax.persistence.*;
 
 @Entity
-@Table(schema = "lab", name = "dots")
+@Table(schema = "public", name = "dots")
 public class Dot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +15,9 @@ public class Dot {
 
     @Column(table = "dots", name = "r")
     private double r;
+
+    @Column(table = "dots", name = "hit")
+    private boolean hit;
 
     public double getX() {
         return x;
@@ -44,10 +47,25 @@ public class Dot {
         return id;
     }
 
+    public boolean isHit() {
+        return hit;
+    }
+
+    public void setHit(boolean hit) {
+        this.hit = hit;
+    }
+
     public Dot(double x, double y, double r) {
         this.x = x;
         this.y = y;
         this.r = r;
+    }
+
+    public Dot(double x, double y, double r, boolean hit) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.hit = hit;
     }
 
     public Dot() {
