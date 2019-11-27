@@ -35,7 +35,9 @@
                         Координата Х:
                     </td>
                 </tr>
-
+                    <h:selectOneMenu id="x">
+                        <f:selectItems value="#{mainBean.xList}" var="c" itemLabel="#{x}" itemValue="#{x}"></f:selectItems>
+                    </h:selectOneMenu>
                 <tr>
                     <td>
                         <!--<input type="text" class="text-input" id="x-input" placeholder="Графический ввод" maxlength="10"-->
