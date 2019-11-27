@@ -164,19 +164,19 @@ function drawCanvas(R) {
     context.fillRect(0, 0, size, size);
     //область
     context.fillStyle = 'rgb(44,103,191)';
-    context.fillRect(0.5 * size, 0.15 * size, 0.35 * size, 0.35 * size);
+    context.fillRect(0.5 * size, 0.15 * size, 0.175 * size, 0.35 * size);
     context.beginPath();
     context.moveTo(0.5 * size, 0.5 * size);
-    context.lineTo(0.5 * size, 0.675 * size);
-    context.lineTo(0.675 * size, 0.5 * size);
+    context.lineTo(0.15 * size, 0.5 * size);
+    context.lineTo(0.5 * size, 0.85 * size);
     context.lineTo(0.5 * size, 0.5 * size);
     context.closePath();
     context.fill();
     context.beginPath();
-    context.moveTo(0.325 * size, 0.5 * size);
-    context.arcTo(0.325 * size, 0.675 * size, 0.5 * size, 0.675 * size, 0.175 * size);
+    context.moveTo(0.15 * size, 0.5 * size);
+    context.arcTo(0.15 * size, 0.15 * size, 0.5 * size, 0.15 * size, 0.35 * size);
     context.lineTo(0.5 * size, 0.5 * size);
-    context.lineTo(0.325 * size, 0.5 * size);
+    context.lineTo(0.15 * size, 0.5 * size);
     context.closePath();
     context.fill();
     //оси и стрелочки
