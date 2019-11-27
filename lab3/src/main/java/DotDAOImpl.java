@@ -14,12 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Component(service = DotDAO.class)
 public class DotDAOImpl implements DotDAO {
 
-    private static AtomicInteger current = new AtomicInteger(1);
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
