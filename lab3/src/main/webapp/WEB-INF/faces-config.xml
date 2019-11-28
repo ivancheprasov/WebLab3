@@ -9,4 +9,27 @@
         <managed-bean-class>MainBean</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>navigationController</managed-bean-name>
+        <managed-bean-class>NavigationController</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/views/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{navigationController.pageMain}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/views/main.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/views/main.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{navigationController.pageIndex}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/views/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

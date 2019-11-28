@@ -21,15 +21,14 @@
                 clock();
             </script>
         </p>
-        <a id="mainLink">Перейти на основную страницу</a>
+        <h:form>
+            <h:commandLink styleClass="mainLink" action="main?faces-redirect=true">Перейти на основную страницу</h:commandLink>
+        </h:form>
     </div>
     <div class="footer">
         <p>Ссылка на исходные файлы:
             <a id="gitLink" href="https://github.com/ivancheprasov/WebLab3">github.com/ivancheprasov/WebLab3</a>
         </p>
-        <script type="text/javascript">
-            setMainLink();
-        </script>
     </div>
 </h:body>
 </html>

@@ -144,12 +144,12 @@ a:visited{
 a:hover{
     color:white;
 }
-#gitLink,#indexLink{
+#gitLink,.indexLink{
     text-decoration: underline;
     font-style: italic;
     cursor: pointer;
 }
-#gitLink:hover,#indexLink:hover{
+#gitLink:hover,.indexLink:hover{
     font-weight: bold;
 }
 #clockDiv{
@@ -161,7 +161,7 @@ a:hover{
 	font-size: 40px;
 	text-align: center;
 }
-#mainLink{
+.mainLink{
 	display: inline;
 	color:black;
 	padding: 1.5%;
@@ -170,12 +170,12 @@ a:hover{
 	font-style: italic;
 	cursor: pointer;
 }
-#mainLink:hover{
+.mainLink:hover{
 	background-color: #C7B8AF;
 	background-size: 150%,150%,150%,150%;
 	border-radius: 100%;
 }
-#mainLink:visited{
+.mainLink:visited{
 	color:black;
 }
 .x-input,.y-input,.r-input{

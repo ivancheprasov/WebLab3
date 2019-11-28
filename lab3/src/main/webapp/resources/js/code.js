@@ -307,14 +307,16 @@ function setMainLink() {
 }
 
 function setDefaultCanvas() {
-    drawCanvas($('.r-input').val());
+    let R=$('.r-input').val();
+    drawCanvas(R);
+    drawDots(R);
     $('#canvas').click(function (event) {
+        let R=$('.r-input').val();
         let errorJquery = $('#error-log');
         errorJquery.html("");
         let canvas = $('#canvas').get(0);
         let context = canvas.getContext("2d");
-        let R = $('.r-input').val();
-        R = parseFloat(parseFloat(R.replace(",", ".")).toPrecision(4));
+        R = parseFloat(parseFloat(R.toString().replace(",", ".")).toPrecision(4));
         if (!(R >= 1.0 && R <= 3.0)) {
             R = "R";
         }

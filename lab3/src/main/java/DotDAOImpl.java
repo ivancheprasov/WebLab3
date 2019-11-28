@@ -24,7 +24,11 @@ public class DotDAOImpl implements DotDAO {
         @SuppressWarnings("rawtypes")
         Map map = new HashMap();
         map.put(PersistenceUnitProperties.CLASSLOADER, getClass().getClassLoader());
-        entityManagerFactory = Persistence.createEntityManagerFactory("postgresql-eclipselink", map);
+        if(System.getProperty("os.name").contains("Windows")) {
+            entityManagerFactory = Persistence.createEntityManagerFactory("postgresql-eclipselink", map);
+        } else {
+            entityManagerFactory = Persistence.createEntityManagerFactory("postgresql-eclipselink-helios", map);
+        }
         entityManager = entityManagerFactory.createEntityManager();
     }
 
