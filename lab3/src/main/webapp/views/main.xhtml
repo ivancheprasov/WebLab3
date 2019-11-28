@@ -29,9 +29,12 @@
                     <div id="canvas-container">
                         <canvas id="canvas">Здесь должен был быть Canvas, но ваш браузер его не поддерживает.</canvas>
                         <h:form id="hiddenForm" name="hiddenForm" style="display: none;">
-                            <h:inputText id="xCanvas" styleClass="xCanvas"/>
-                            <h:inputText id="yCanvas" styleClass="yCanvas"/>
-                            <h:inputText id="rCanvas" styleClass="rCanvas"/>
+                            <h:inputText id="xCanvas" styleClass="xCanvas" value="${mainBean.x}"/>
+                            <h:inputText id="yCanvas" styleClass="yCanvas" value="${mainBean.y}"/>
+                            <h:inputText id="rCanvas" styleClass="rCanvas" value="${mainBean.r}"/>
+                            <h:commandButton id="pushMe" action="${mainBean.addDot(true)}" styleClass="canvasButton">
+                                <f:ajax execute="hiddenForm" render="resultTable"/>
+                            </h:commandButton>
                         </h:form>
                     </div>
                 </td>
@@ -39,11 +42,11 @@
                     Координата Х:
                 </td>
             </tr>
-            <h:form id="form" method="post" target="answer">
+            <h:form id="form" >
                 <tr>
                     <td>
-                        <h:selectOneMenu value="${mainBean.xList}" id="x-input" styleClass="x-input">
-                            <f:selectItems value="#{mainBean.xList}" var="c" itemLabel="#{x}" itemValue="#{x}"/>
+                        <h:selectOneMenu value="${mainBean.x}" id="x-input" styleClass="x-input">
+                            <f:selectItems value="#{mainBean.xList}" var="c" itemLabel="#{c}" itemValue="#{c}"/>
                         </h:selectOneMenu>
                     </td>
                 </tr>
@@ -54,7 +57,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <h:inputText id="y-input" maxlength="10" ps:placeholder="от -5 до 3" styleClass="y-input"/>
+                        <h:inputText id="y-input" maxlength="10" ps:placeholder="от -5 до 3" styleClass="y-input" value="${mainBean.y}"/>
                     </td>
                 </tr>
                 <tr>
@@ -64,15 +67,18 @@
                 </tr>
                 <tr>
                     <td>
-                        <h:selectOneMenu value="${mainBean.rList}" id="r-input" styleClass="r-input"
+                        <h:selectOneMenu value="${mainBean.r}" id="r-input" styleClass="r-input"
                                          onchange="drawCanvas(this.options[this.selectedIndex].value)">
-                            <f:selectItems value="#{mainBean.rList}" var="c" itemLabel="#{r}" itemValue="#{r}"/>
+                            <f:selectItems value="#{mainBean.rList}" var="c" itemLabel="#{c}" itemValue="#{c}"/>
                         </h:selectOneMenu>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <h:button value="Отправить" onclick="return formSubmit(event)" styleClass="submitButton"/>
+                        <h:commandButton styleClass="submitCommandButton" action="${mainBean.addDot(false)}">
+                            <f:ajax execute="form" render="resultTable"/>
+                        </h:commandButton>
                     </td>
                 </tr>
             </h:form>
@@ -91,62 +97,80 @@
             <tbody>
             <tr>
                 <td>
-                    <table class="result-table">
-                        <tr id="first-line">
-                            <td>
-                                Координата Х
-                            </td>
-                            <td>
-                                Координата Y
-                            </td>
-                            <td>
-                                Координата R
-                            </td>
-                            <td>
-                                Попадание
-                            </td>
-                        </tr>
-                        <tr id="second-line">
-                            <td>
-                                <br/>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr id="third-line">
-                            <td>
-                                <br/>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr id="fourth-line">
-                            <td>
-                                <br/>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr id="fifth-line">
-                            <td>
-                                <br/>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr id="sixth-line">
-                            <td>
-                                <br/>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
+<!--                    <table class="result-table">-->
+<!--                        <tr id="first-line">-->
+<!--                            <td>-->
+<!--                                Координата Х-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                Координата Y-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                Координата R-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                Попадание-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr id="second-line">-->
+<!--                            <td>-->
+<!--                                <br/>-->
+<!--                            </td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
+<!--                        <tr id="third-line">-->
+<!--                            <td>-->
+<!--                                <br/>-->
+<!--                            </td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
+<!--                        <tr id="fourth-line">-->
+<!--                            <td>-->
+<!--                                <br/>-->
+<!--                            </td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
+<!--                        <tr id="fifth-line">-->
+<!--                            <td>-->
+<!--                                <br/>-->
+<!--                            </td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
+<!--                        <tr id="sixth-line">-->
+<!--                            <td>-->
+<!--                                <br/>-->
+<!--                            </td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+                    <h:dataTable value="#{mainBean.dotList}" var="dot" id="resultTable" styleClass="resultTable" >
+                        <h:column>
+                            <f:facet name="header">X</f:facet>
+                            ${dot.x}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Y</f:facet>
+                            ${dot.y}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">R</f:facet>
+                            ${dot.r}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Попадание</f:facet>
+                            ${dot.hit}
+                        </h:column>
+                    </h:dataTable>
                 </td>
             </tr>
             <tr>

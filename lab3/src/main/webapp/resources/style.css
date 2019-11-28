@@ -111,7 +111,7 @@ h1::first-line{
 .submitButton:hover{
 	font-weight: bold;
 }
-.result-table{
+.resultTable{
 	margin-left: 5%;
 	margin-right: 5%;
 	width: 90%;
@@ -121,7 +121,7 @@ h1::first-line{
 	font-style: italic;
 	text-align: center;
 }
-.result-table td{
+.resultTable td{
 	border: 1px solid #30125A;
 	min-height: 60px;
 }
@@ -189,4 +189,8 @@ a:hover{
 	text-align: center;
 	font-size: 20px;
 	text-align-last:center;
+}
+
+.canvasButton, .submitCommandButton{
+	display: none;
 }

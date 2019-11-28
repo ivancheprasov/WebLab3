@@ -54,9 +54,10 @@ function formSubmit(event) {
     event.preventDefault();
     try {
         if (validate()) {
-            let y = $('#y-input');
-            if (!(y.val().match(/^-0(((.|,)0+)|)$/) === null)) y.val("0.0");
-            postSubmit().then(afterPost);
+            alert(pup);
+            // let y = $('#y-input');
+            // if (!(y.val().match(/^-0(((.|,)0+)|)$/) === null)) y.val("0.0");
+            $('.submitCommandButton').click();
         }
     } catch (error) {
     }
@@ -305,9 +306,7 @@ function setDefaultCanvas() {
             $('.yCanvas').val("");
         }
         $('.rCanvas').val(R);
-        if (!(R === "R")) {
-            postCanvas().then(afterPost);
-        }
+        $('.canvasButton').click();
     });
 }
 

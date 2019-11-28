@@ -10,10 +10,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Component(service = DotDAO.class)
 public class DotDAOImpl implements DotDAO {
@@ -64,6 +61,7 @@ public class DotDAOImpl implements DotDAO {
         dot.setX(newDot.getX());
         dot.setY(newDot.getY());
         dot.setR(newDot.getR());
+        dot.setHit(newDot.isHit());
 
         if (dotOptional.isPresent()) {
             entityManager.getTransaction().begin();
