@@ -68,7 +68,7 @@
                 <tr>
                     <td>
                         <h:selectOneMenu value="${mainBean.r}" id="r-input" styleClass="r-input"
-                                         onchange="drawCanvas(this.options[this.selectedIndex].value)">
+                                         onchange="changeR(this.options[this.selectedIndex].value)">
                             <f:selectItems value="#{mainBean.rList}" var="c" itemLabel="#{c}" itemValue="#{c}"/>
                         </h:selectOneMenu>
                     </td>

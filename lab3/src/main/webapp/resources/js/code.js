@@ -224,8 +224,7 @@ function drawDots(R) {
                x = rowString.toString().split(' ')[0];
                y = rowString.toString().split(' ')[1];
                r = rowString.toString().split(' ')[2];
-               hit = rowString.toString().split(' ')[3];
-               if(hit==="true"){
+               if(isHit(x,y)){
                    if(last===row){
                        context.fillStyle = 'rgb(39, 219, 105)';
                        context.strokeStyle = 'rgb(39, 219, 105)';
@@ -267,7 +266,12 @@ function drawDots(R) {
         });
     }
 }
-
+function isHit(x,y){
+    let R=$('.r-input').val();
+    return (x <= 0 && y >= 0 && Math.pow(x, 2) + Math.pow(y, 2) < Math.pow(R, 2))
+        || (x >= 0 && y >= 0 && y <= R && x <= R / 2)
+        || (x <= 0 && y <= 0 && y >= -x - R);
+}
 function setResultTable() {
     let table = $('.resultTable tbody');
     let rows = $('.resultTable tbody tr');
@@ -351,5 +355,9 @@ function setDefaultResultTable(){
         setResultTable();
     });
     setResultTable();
+}
+function changeR(R) {
+    drawCanvas(R);
+    drawDots(R);
 }
 
