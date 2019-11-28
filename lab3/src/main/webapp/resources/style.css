@@ -97,7 +97,7 @@ h1::first-line{
 #canvas-cell{
 	width:40%;
 }
-#submitButton{
+.submitButton{
 	border-radius: 16px;
 	width:	50%;
 	background-color: #30125A;
@@ -108,7 +108,7 @@ h1::first-line{
 	outline:none !important;
 	min-height:50px;
 }
-#submitButton:hover{
+.submitButton:hover{
 	font-weight: bold;
 }
 .result-table{
@@ -177,4 +177,16 @@ a:hover{
 }
 #mainLink:visited{
 	color:black;
+}
+.x-input,.y-input,.r-input{
+	border-radius: 16px;
+	width: 75%;
+	background-color: #30125A;
+	border: none;
+	text-decoration: none;
+	color: white;
+	outline:none !important;
+	text-align: center;
+	font-size: 20px;
+	text-align-last:center;
 }

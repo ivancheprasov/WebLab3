@@ -3,6 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ps="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>Лабораторная работа №3</title>
@@ -11,49 +12,39 @@
     <h:outputScript name="js/code.js"/>
 </h:head>
 <h:body>
-    <h:form id="form" method="post" target="answer">
-        <div class="left-table">
-            <table class="point-table">
-                <thead>
+    <div class="left-table">
+        <table class="point-table">
+            <thead>
+            <tr>
+                <td class="table-heading" colspan="2">Выберите координаты точки и радиус</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Область</td>
+                <td>Значения</td>
+            </tr>
+            <tr>
+                <td rowspan="6" id="canvas-cell">
+                    <div id="canvas-container">
+                        <canvas id="canvas">Здесь должен был быть Canvas, но ваш браузер его не поддерживает.</canvas>
+                        <h:form id="hiddenForm" name="hiddenForm" style="display: none;">
+                            <h:inputText id="xCanvas" styleClass="xCanvas"/>
+                            <h:inputText id="yCanvas" styleClass="yCanvas"/>
+                            <h:inputText id="rCanvas" styleClass="rCanvas"/>
+                        </h:form>
+                    </div>
+                </td>
+                <td>
+                    Координата Х:
+                </td>
+            </tr>
+            <h:form id="form" method="post" target="answer">
                 <tr>
-                    <td class="table-heading" colspan="2">Выберите координаты точки и радиус</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Область</td>
-                    <td>Значения</td>
-                </tr>
-                <tr>
-                    <td rowspan="6" id="canvas-cell">
-                        <div id="canvas-container">
-                            <canvas id="canvas">Здесь должен был быть Canvas, но ваш браузер его не поддерживает.</canvas>
-                            <h:outputScript name="js/canvas.js"/>
-                        </div>
-                    </td>
                     <td>
-                        Координата Х:
-
-                    </td>
-                </tr>
-                    <h:selectOneMenu id="x">
-                        <f:selectItems value="#{mainBean.xList}" var="c" itemLabel="#{x}" itemValue="#{x}"></f:selectItems>
-                    </h:selectOneMenu>
-                <tr>
-                    <td>
-                        <h:selectOneMenu value="${mainBean.xList}" id="x-input">
-                            <f:selectItem itemLabel="-5" itemValue="-5"/>
-                            <f:selectItem itemLabel="-4" itemValue="-4"/>
-                            <f:selectItem itemLabel="-3" itemValue="-3"/>
-                            <f:selectItem itemLabel="-2" itemValue="-2"/>
-                            <f:selectItem itemLabel="-1" itemValue="-1"/>
-                            <f:selectItem itemLabel="0" itemValue="0"/>
-                            <f:selectItem itemLabel="1" itemValue="1"/>
-                            <f:selectItem itemLabel="2" itemValue="2"/>
-                            <f:selectItem itemLabel="3" itemValue="3"/>
+                        <h:selectOneMenu value="${mainBean.xList}" id="x-input" styleClass="x-input">
+                            <f:selectItems value="#{mainBean.xList}" var="c" itemLabel="#{x}" itemValue="#{x}"/>
                         </h:selectOneMenu>
-<!--                        <input type="text" class="text-input" id="x-input" placeholder="Графический ввод" maxlength="10"-->
-<!--                               name="x-input[]" form="form" readonly="readonly"/>-->
                     </td>
                 </tr>
                 <tr>
@@ -63,130 +54,126 @@
                 </tr>
                 <tr>
                     <td>
-                        <!--<input type="text" class="text-input" id="y-input" placeholder="от -5 до 3" maxlength="10"-->
-                        <!--name="y-input" form="form">-->
-                        <h:inputText id="y-input" maxlength="10"/>
+                        <h:inputText id="y-input" maxlength="10" ps:placeholder="от -5 до 3" styleClass="y-input"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         Радиус:
-                        <h:selectOneMenu value="${mainBean.rList}" onchange="drawCanvas(this.options[this.selectedIndex].value)">
-                            <f:selectItem itemLabel="1" itemValue="1"/>
-                            <f:selectItem itemLabel="1.5" itemValue="1.5"/>
-                            <f:selectItem itemLabel="2" itemValue="2"/>
-                            <f:selectItem itemLabel="2.5" itemValue="2.5"/>
-                            <f:selectItem itemLabel="3" itemValue="3"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:selectOneMenu value="${mainBean.rList}" id="r-input" styleClass="r-input"
+                                         onchange="drawCanvas(this.options[this.selectedIndex].value)">
+                            <f:selectItems value="#{mainBean.rList}" var="c" itemLabel="#{r}" itemValue="#{r}"/>
                         </h:selectOneMenu>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <!--<button type="button" class="button" id="submitButton" form="form"-->
-                        <!--onclick="return formSubmit(event);">-->
-                        <!--Отправить-->
-                        <!--</button>-->
-                        <h:button onclick="return formSubmit(event)">Отправить</h:button>
+                        <h:button value="Отправить" onclick="return formSubmit(event)" styleClass="submitButton"/>
                     </td>
                 </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="right-table">
-            <table class="point-table">
-                <thead>
-                <tr>
-                    <td class="table-heading">
-                        Результат обработки данных
-                    </td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <table class="result-table">
-                            <tr id="first-line">
-                                <td>
-                                    Координата Х
-                                </td>
-                                <td>
-                                    Координата Y
-                                </td>
-                                <td>
-                                    Координата R
-                                </td>
-                                <td>
-                                    Попадание
-                                </td>
-                            </tr>
-                            <tr id="second-line">
-                                <td>
-                                    <br/>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr id="third-line">
-                                <td>
-                                    <br/>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr id="fourth-line">
-                                <td>
-                                    <br/>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr id="fifth-line">
-                                <td>
-                                    <br/>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr id="sixth-line">
-                                <td>
-                                    <br/>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a id="indexLink" href="index.xhtml">Вернуться на титульную страницу</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="bottom-table">
-            <table class="error-table">
-                <thead>
-                <tr>
-                    <td>Полезные советы</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <ul id="error-log">
-                        </ul>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </h:form>
+            </h:form>
+            </tbody>
+        </table>
+    </div>
+    <div class="right-table">
+        <table class="point-table">
+            <thead>
+            <tr>
+                <td class="table-heading">
+                    Результат обработки данных
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <table class="result-table">
+                        <tr id="first-line">
+                            <td>
+                                Координата Х
+                            </td>
+                            <td>
+                                Координата Y
+                            </td>
+                            <td>
+                                Координата R
+                            </td>
+                            <td>
+                                Попадание
+                            </td>
+                        </tr>
+                        <tr id="second-line">
+                            <td>
+                                <br/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="third-line">
+                            <td>
+                                <br/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="fourth-line">
+                            <td>
+                                <br/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="fifth-line">
+                            <td>
+                                <br/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="sixth-line">
+                            <td>
+                                <br/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a id="indexLink" href="index.xhtml">Вернуться на титульную страницу</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="bottom-table">
+        <table class="error-table">
+            <thead>
+            <tr>
+                <td>Полезные советы</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <ul id="error-log">
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <h:outputScript name="js/canvas.js"/>
 </h:body>
 </html>

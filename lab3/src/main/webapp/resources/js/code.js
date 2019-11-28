@@ -19,16 +19,19 @@ function clock() {
 function validate() {
     let errorJquery = $('#error-log');
     errorJquery.html("");
-    $('#x-input').val("");
     let success = true;
-    if ($('input[name^="x-input"]:checked').length === 0) {
+    let x=$('.x-input').val();
+    if (x.match(/^[0-3](((.|,)0+)|)$/)== null
+        && x.match(/^-[0-5](((.|,)0+)|)$/) == null &&
+        x.match(/^[0-2](.|,)\d+$/) == null &&
+        x.match(/^-[0-4](.|,)\d+$/) == null) {
         let li = document.createElement('li');
         li.setAttribute("style", "padding-bottom:1%;padding-top:1%;");
         errorJquery.append(li);
         li.innerHTML = li.innerHTML + "Вы не выбрали значение Х. Сделайте это.";
         success = false;
     }
-    let y = $('#y-input').val();
+    let y = $('.y-input').val();
     if (y.match(/^[0-3](((.|,)0+)|)$/) == null && y.match(/^-[0-5](((.|,)0+)|)$/) == null && y.match(/^[0-2](.|,)\d+$/) == null && y.match(/^-[0-4](.|,)\d+$/) == null) {
         let li = document.createElement('li');
         li.setAttribute("style", "padding-bottom:1%;padding-top:1%;");
@@ -36,19 +39,12 @@ function validate() {
         li.innerHTML = li.innerHTML + "Введено некорректное значение Y или не входящее в допустимый диапозон. Введите значение от -5 до 3.";
         success = false;
     }
-    let rJquery = $('input[name^="r-input"]:checked');
-    if (rJquery.length === 0) {
+    let r = $('.r-input').val();
+    if (r.match(/^[1-3](((.|,)0+)|)$/) == null && r.match(/^[1-2](.|,)\d+$/) == null) {
         let li = document.createElement('li');
         li.setAttribute("style", "padding-bottom:1%;padding-top:1%;");
         errorJquery.append(li);
-        li.innerHTML = li.innerHTML + "Выберите значение радиуса, чтобы указать масштаб.";
-        success = false;
-    }
-    if (rJquery.length > 1) {
-        let li = document.createElement('li');
-        li.setAttribute("style", "padding-bottom:1%;padding-top:1%;");
-        errorJquery.append(li);
-        li.innerHTML = li.innerHTML + "Масштаб указан неверно. Выберите ровно одно значение радиуса.";
+        li.innerHTML = li.innerHTML + "Вы не выбрали значение R. Сделайте это.";
         success = false;
     }
     return success;
@@ -61,7 +57,6 @@ function formSubmit(event) {
             let y = $('#y-input');
             if (!(y.val().match(/^-0(((.|,)0+)|)$/) === null)) y.val("0.0");
             postSubmit().then(afterPost);
-
         }
     } catch (error) {
     }
@@ -89,25 +84,7 @@ async function postCanvas() {
 }
 
 function afterPost() {
-    let R = decodeR();
-    drawDots(R);
-    blockLink();
-}
-
-function blockLink() {
-    $('#answer').contents().find('#mainLink').click(function () {
-        let errorJquery = $('#error-log');
-        errorJquery.html("");
-        let li = document.createElement('li');
-        li.setAttribute("style", "padding-bottom:1%;padding-top:1%;");
-        errorJquery.append(li);
-        li.innerHTML = li.innerHTML + "Вы уже находитесь на странице с формой.";
-        return false;
-    });
-}
-
-function clearText(tag) {
-    document.getElementById(tag).value = "";
+    drawDots($('.r-input').val());
 }
 
 $(document).on('keypress', function (e) {
@@ -115,41 +92,6 @@ $(document).on('keypress', function (e) {
         e.preventDefault();
     }
 });
-
-function decodeR() {
-    document.getElementById('error-log').innerHTML = "";
-    let jqueryR = $('input[name^="r-input"]:checked');
-    let R;
-    if (jqueryR.length > 1) {
-        let li = document.createElement('li');
-        li.setAttribute("style", "padding-bottom:1%;padding-top:1%;");
-        document.getElementById('error-log').appendChild(li);
-        li.innerHTML = li.innerHTML + "Масштаб указан неверно. Выберите ровно одно значение радиуса.";
-        R = "";
-    } else {
-        if (jqueryR.length === 0) {
-            let li = document.createElement('li');
-            li.setAttribute("style", "padding-bottom:1%;padding-top:1%;");
-            document.getElementById('error-log').appendChild(li);
-            li.innerHTML = li.innerHTML + "Выберите значение радиуса, чтобы указать масштаб.";
-            R = "";
-        } else {
-            R = jqueryR.get(0).value;
-        }
-    }
-    return R;
-}
-
-function setR() {
-    let jqueryR = $('input[name^="r-input"]:checked');
-    if (jqueryR.length > 1 || jqueryR.length === 0) {
-        drawCanvas("R");
-    } else {
-        let R = jqueryR.get(0).value;
-        drawCanvas(R);
-        setTimeout(drawDots, 100, R);
-    }
-}
 
 function drawCanvas(R) {
     let canvas = $('#canvas').get(0);
@@ -326,13 +268,15 @@ function setMainLink() {
 }
 
 function setDefaultCanvas() {
-    drawCanvas("R");
+    drawCanvas($('.r-input').val());
     $('#canvas').click(function (event) {
+        let errorJquery = $('#error-log');
+        errorJquery.html("");
         let canvas = $('#canvas').get(0);
         let context = canvas.getContext("2d");
-        let R = decodeR();
+        let R = $('.r-input').val();
         R = parseFloat(parseFloat(R.replace(",", ".")).toPrecision(4));
-        if (!(R >= 1.0 && R <= 5.0)) {
+        if (!(R >= 1.0 && R <= 3.0)) {
             R = "R";
         }
         drawCanvas(R);
@@ -354,13 +298,13 @@ function setDefaultCanvas() {
         if (R >= 1.0 && R <= 5.0) {
             xVal = (-canvas.height / 2 + x) / (0.35 * canvas.height) * R;
             yVal = (canvas.height / 2 - y) / (0.35 * canvas.height) * R;
-            $('#x-input').val(xVal.toPrecision(5));
-            $('#y-input').val(yVal.toPrecision(5));
-            $('input[name^="x-input"]:checked').prop("checked", false);
+            $('.xCanvas').val(xVal.toPrecision(5));
+            $('.yCanvas').val(yVal.toPrecision(5));
         } else {
-            $('#x-input').val("");
-            $('#y-input').val("");
+            $('.xCanvas').val("");
+            $('.yCanvas').val("");
         }
+        $('.rCanvas').val(R);
         if (!(R === "R")) {
             postCanvas().then(afterPost);
         }
