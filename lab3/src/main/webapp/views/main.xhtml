@@ -97,77 +97,21 @@
             <tbody>
             <tr>
                 <td>
-<!--                    <table class="result-table">-->
-<!--                        <tr id="first-line">-->
-<!--                            <td>-->
-<!--                                Координата Х-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                Координата Y-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                Координата R-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                Попадание-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        <tr id="second-line">-->
-<!--                            <td>-->
-<!--                                <br/>-->
-<!--                            </td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                        </tr>-->
-<!--                        <tr id="third-line">-->
-<!--                            <td>-->
-<!--                                <br/>-->
-<!--                            </td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                        </tr>-->
-<!--                        <tr id="fourth-line">-->
-<!--                            <td>-->
-<!--                                <br/>-->
-<!--                            </td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                        </tr>-->
-<!--                        <tr id="fifth-line">-->
-<!--                            <td>-->
-<!--                                <br/>-->
-<!--                            </td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                        </tr>-->
-<!--                        <tr id="sixth-line">-->
-<!--                            <td>-->
-<!--                                <br/>-->
-<!--                            </td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                        </tr>-->
-<!--                    </table>-->
                     <h:dataTable value="#{mainBean.dotList}" var="dot" id="resultTable" styleClass="resultTable" >
                         <h:column>
-                            <f:facet name="header">X</f:facet>
+                            <f:facet name="header" styleClass="firstLine">X</f:facet>
                             ${dot.x}
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Y</f:facet>
+                            <f:facet name="header" styleClass="firstLine">Y</f:facet>
                             ${dot.y}
                         </h:column>
                         <h:column>
-                            <f:facet name="header">R</f:facet>
+                            <f:facet name="header" styleClass="firstLine">R</f:facet>
                             ${dot.r}
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Попадание</f:facet>
+                            <f:facet name="header" styleClass="firstLine">Попадание</f:facet>
                             ${dot.hit}
                         </h:column>
                     </h:dataTable>

@@ -54,9 +54,6 @@ function formSubmit(event) {
     event.preventDefault();
     try {
         if (validate()) {
-            alert(pup);
-            // let y = $('#y-input');
-            // if (!(y.val().match(/^-0(((.|,)0+)|)$/) === null)) y.val("0.0");
             $('.submitCommandButton').click();
         }
     } catch (error) {
