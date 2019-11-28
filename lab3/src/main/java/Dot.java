@@ -77,4 +77,15 @@ public class Dot {
         this.y = y;
         this.r = r;
     }
+
+    @Override
+    public String toString() {
+        return "Dot{" +
+                "id=" + id +
+                ", x=" + x +
+                ", y=" + y +
+                ", r=" + r +
+                ", hit=" + hit +
+                '}';
+    }
 }

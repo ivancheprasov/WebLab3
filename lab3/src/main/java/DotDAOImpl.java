@@ -30,6 +30,9 @@ public class DotDAOImpl implements DotDAO {
 
     @Deactivate
     protected void deactivateComponent() {
+        if (entityManager.getTransaction().isActive()) {
+            entityManager.getTransaction().commit();
+        }
         entityManager.close();
         entityManagerFactory.close();
         entityManager = null;
@@ -48,39 +51,24 @@ public class DotDAOImpl implements DotDAO {
         return dotTypedQuery.getResultList();
     }
 
-    public Optional<Dot> getOptionalDotById(int id) {
-        entityManager.getTransaction().begin();
-        Dot dot = entityManager.find(Dot.class, id);
-        entityManager.getTransaction().commit();
-        return Optional.ofNullable(dot);
-    }
 
     public void addDot(Dot newDot) {
-        Optional<Dot> dotOptional = getOptionalDotById(newDot.getId());
-        Dot dot = dotOptional.orElse(new Dot());
-        dot.setX(newDot.getX());
-        dot.setY(newDot.getY());
-        dot.setR(newDot.getR());
-        dot.setHit(newDot.isHit());
-
-        if (dotOptional.isPresent()) {
-            entityManager.getTransaction().begin();
-            entityManager.merge(dot);
-            entityManager.getTransaction().commit();
-        } else {
-            entityManager.getTransaction().begin();
-            entityManager.persist(dot);
-            entityManager.getTransaction().commit();
-        }
+        entityManager.getTransaction().begin();
+        entityManager.persist(newDot);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public Dot getDotById(int id) {
-        return getOptionalDotById(id).get();
+        return entityManager.find(Dot.class, id);
     }
 
     public void addDots(List<Dot> dotList) {
-        dotList.forEach(this::addDot);
+        entityManager.getTransaction().begin();
+        for (Dot dot:dotList) {
+            entityManager.persist(dot);
+        }
+        entityManager.getTransaction().commit();
     }
 
     public void deleteDotById(int id) {
@@ -89,4 +77,12 @@ public class DotDAOImpl implements DotDAO {
         entityManager.remove(find);
         entityManager.getTransaction().commit();
     }
+
+    public void save5Dots(List<Dot> dots) {
+        if(dots.size() > 5) {
+            dots = dots.subList(0,5);
+        }
+        addDots(dots);
+    }
+
 }
