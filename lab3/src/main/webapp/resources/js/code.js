@@ -20,8 +20,8 @@ function validate() {
     let errorJquery = $('#error-log');
     errorJquery.html("");
     let success = true;
-    let x=$('.x-input').val();
-    if (x.match(/^[0-3](((.|,)0+)|)$/)== null
+    let x = $('.x-input').val();
+    if (x.match(/^[0-3](((.|,)0+)|)$/) == null
         && x.match(/^-[0-5](((.|,)0+)|)$/) == null &&
         x.match(/^[0-2](.|,)\d+$/) == null &&
         x.match(/^-[0-4](.|,)\d+$/) == null) {
@@ -204,64 +204,101 @@ function drawDots(R) {
         let canvas = $('#canvas').get(0);
         let context = canvas.getContext("2d");
         let size = canvas.height;
-        let jquery = $('#answer');
-        let htmlArray = Array(jquery.contents().find('#second-line').html().toString(),
-            jquery.contents().find('#third-line').html().toString(),
-            jquery.contents().find('#fourth-line').html().toString(),
-            jquery.contents().find('#fifth-line').html().toString(),
-            jquery.contents().find('#sixth-line').html().toString());
-        let xString = "";
-        let yString = "";
-        let rString = "";
-        let supportString = "";
-        for (let i = 0; i < 5; i++) {
-            let html = htmlArray[i].replace(/\s/g, "");
-            xString += html.substring(0, html.indexOf('</td><td>')).replace("<td>", "") + " ";
-            supportString = html.substring(html.indexOf('</td><td>') + 9, html.length);
-            yString += supportString.substring(0, supportString.indexOf('</td><td>')) + " ";
-            supportString = html.substring(html.indexOf('</td><td>') + 9, html.lastIndexOf('</td><td>'));
-            rString += supportString.substring(supportString.indexOf('</td><td>') + 9, supportString.length) + " ";
-        }
-        xString = xString.split("<br>").join("").trim();
-        yString = yString.trim();
-        rString = rString.trim();
-        for (let i = 0; i < 5; i++) {
-            let r = rString.toString().split(" ");
-            let x = xString.toString().split(" ");
-            let y = yString.toString().split(" ");
-            context.fillStyle = 'rgb(48, 18, 90)';
-            context.beginPath();
-            let canvasX = x[i] * 0.35 * size / r[i] + size / 2;
-            if (canvasX >= size / 2) {
-                canvasX = (canvasX - size / 2) * r[i] / R + size / 2;
-            } else {
-                canvasX = size / 2 - (size / 2 - canvasX) * r[i] / R;
-            }
-            let canvasY = size / 2 - y[i] * 0.35 * size / r[i];
-            if (canvasY >= size / 2) {
-                canvasY = (canvasY - size / 2) * r[i] / R + size / 2;
-            } else {
-                canvasY = size / 2 - (size / 2 - canvasY) * r[i] / R;
-            }
-            context.arc(canvasX, canvasY, 3, 0, 2 * Math.PI, true);
-            context.closePath();
-            context.fill();
-            context.strokeStyle = 'rgb(48, 18, 90)';
-            context.lineWidth = 2;
-            context.beginPath();
-            context.arc(canvasX, canvasY, 7, 0, 2 * Math.PI, true);
-            context.closePath();
-            context.stroke();
-        }
+        let rowString="";
+        let x;
+        let y;
+        let r;
+        let hit;
+        let rows=$('.resultTable tbody tr');
+        let last=-1;
+        rows.each(function (row){
+        });
+        if(last===-1) last=4;
+        rows.each(function (row) {
+           rowString="";
+           $(this).find('td').each(function () {
+               rowString+=$(this).html().toString().replace(/\s+/g,'')+" ";
+           });
+           rowString=rowString.replace('<br>','');
+           if(!(rowString.replace(/\s+/g,'')==="")){
+               x = rowString.toString().split(' ')[0];
+               y = rowString.toString().split(' ')[1];
+               r = rowString.toString().split(' ')[2];
+               hit = rowString.toString().split(' ')[3];
+               if(hit==="true"){
+                   if(last===row){
+                       context.fillStyle = 'rgb(39, 219, 105)';
+                       context.strokeStyle = 'rgb(39, 219, 105)';
+                   }else{
+                       context.fillStyle = 'rgb(18, 74, 39)';
+                       context.strokeStyle = 'rgb(18, 74, 39)';
+                   }
+               }else{
+                   if(last===row){
+                       context.fillStyle = 'rgb(138, 89, 179)';
+                       context.strokeStyle = 'rgb(138, 89, 179)';
+                   }else{
+                       context.fillStyle = 'rgb(92, 44, 156)';
+                       context.strokeStyle = 'rgb(92, 44, 156)';
+                   }
+               }
+               context.beginPath();
+               let canvasX = x * 0.35 * size / r + size / 2;
+               if (canvasX >= size / 2) {
+                   canvasX = (canvasX - size / 2) * r / R + size / 2;
+               } else {
+                   canvasX = size / 2 - (size / 2 - canvasX) * r / R;
+               }
+               let canvasY = size / 2 - y * 0.35 * size / r;
+               if (canvasY >= size / 2) {
+                   canvasY = (canvasY - size / 2) * r / R + size / 2;
+               } else {
+                   canvasY = size / 2 - (size / 2 - canvasY) * r / R;
+               }
+               context.arc(canvasX, canvasY, 3, 0, 2 * Math.PI, true);
+               context.closePath();
+               context.fill();
+               context.lineWidth = 2;
+               context.beginPath();
+               context.arc(canvasX, canvasY, 7, 0, 2 * Math.PI, true);
+               context.closePath();
+               context.stroke();
+           }
+        });
     }
+}
+
+function setResultTable() {
+    let table = $('.resultTable tbody');
+    let rows = $('.resultTable tbody tr');
+    let rowNumber = rows.length;
+    while (rowNumber < 5) {
+        table.append('<tr>' +
+            '<td><br/></td><td></td><td></td><td></td>' +
+            '</tr>');
+        rowNumber++;
+    }
+    let rowString;
+    rows.each(function () {
+        if ($(this).index() > 4) $(this).remove();
+        rowString = "";
+        $(this).find('td').each(function () {
+            rowString += $(this).html();
+        });
+        if (rowString === "") {
+            $(this).find('td').each(function () {
+                $(this).html("<br>");
+            });
+        }
+    });
 }
 
 function setMainLink() {
     let jquery = $('#mainLink');
     if (window.location.href.includes('views')) {
-        jquery.attr('href','main.xhtml');
+        jquery.attr('href', 'main.xhtml');
     } else {
-        jquery.attr('href','views/main.xhtml');
+        jquery.attr('href', 'views/main.xhtml');
     }
 }
 
@@ -305,5 +342,14 @@ function setDefaultCanvas() {
         $('.rCanvas').val(R);
         $('.canvasButton').click();
     });
+}
+function setDefaultResultTable(){
+    $('body').on("DOMNodeInserted",'#resultTable',function () {
+        let R=$('.r-input').val();
+        drawCanvas(R);
+        drawDots(R);
+        setResultTable();
+    });
+    setResultTable();
 }
 

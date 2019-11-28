@@ -125,7 +125,7 @@ h1::first-line{
 	border: 1px solid #30125A;
 	min-height: 60px;
 }
-.firstLine{
+.resultTable thead{
 	background: #544FA0;
 	color: white;
 	font-style: normal;
