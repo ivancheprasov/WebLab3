@@ -171,6 +171,7 @@ a:hover{
 	cursor: pointer;
 }
 .mainLink:hover{
+	color:black;
 	background-color: #C7B8AF;
 	background-size: 150%,150%,150%,150%;
 	border-radius: 100%;
