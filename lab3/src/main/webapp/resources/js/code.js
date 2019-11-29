@@ -61,30 +61,6 @@ function formSubmit(event) {
     return false;
 }
 
-async function postSubmit() {
-    await $.post(
-        "controller/submit",
-        $('#form').serialize(),
-        function (msg) {
-            $('#answer').contents().find('body').html(msg);
-        }
-    );
-}
-
-async function postCanvas() {
-    await $.post(
-        "controller/canvas",
-        $('#form').serialize(),
-        function (msg) {
-            $('#answer').contents().find('body').html(msg);
-        }
-    );
-}
-
-function afterPost() {
-    drawDots($('.r-input').val());
-}
-
 $(document).on('keypress', function (e) {
     if (e.which == 13) {
         e.preventDefault();
