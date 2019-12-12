@@ -1,27 +1,18 @@
-import org.eclipse.persistence.config.PersistenceUnitProperties;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import org.eclipse.persistence.config.PersistenceUnitProperties;
+
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.*;
 
-@Component(service = DotDAO.class)
 public class DotDAOImpl implements DotDAO {
 
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
-    @Activate
-    @SuppressWarnings("unchecked")
     protected void activateComponent() {
-        @SuppressWarnings("rawtypes")
         Map map = new HashMap();
         map.put(PersistenceUnitProperties.CLASSLOADER, getClass().getClassLoader());
         if(System.getProperty("os.name").contains("Windows")) {
@@ -32,7 +23,6 @@ public class DotDAOImpl implements DotDAO {
         entityManager = entityManagerFactory.createEntityManager();
     }
 
-    @Deactivate
     protected void deactivateComponent() {
         if (entityManager.getTransaction().isActive()) {
             entityManager.getTransaction().commit();
@@ -62,7 +52,6 @@ public class DotDAOImpl implements DotDAO {
         entityManager.getTransaction().commit();
     }
 
-    @Override
     public Dot getDotById(int id) {
         return entityManager.find(Dot.class, id);
     }
